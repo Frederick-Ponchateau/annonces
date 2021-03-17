@@ -3,7 +3,7 @@
 use CodeIgniter\Model;
  
 class ContactsModel extends Model{
-    protected $table = 'user';
+    protected $table = 'users';
 
-    protected $allowedFields = ["ID","Nom","Prenom","Email","Phone","DateCreate"];
+    protected $allowedFields = ['user_name','user_email','user_password','user_created_at'];
 }
