@@ -18,35 +18,34 @@
                 <?php if(isset($validation)):?>
                     <div class="alert alert-danger"><?= $validation->listErrors() ?></div>
                 <?php endif;?>
-                <form action="/register/save" method="post">
+                <form action="/home/add" method="post">
                 <div class="mb-3">
-                        <label for="InputForLogin" class="form-label">Login</label>
-                        <input type="text" name="login" class="form-control" id="InputForLogin" value="<?= set_value('login') ?>">
+                        <label for="InputForLogin" class="form-label">nom</label>
+                        <input type="text" name="nom" class="form-control" id="InputForLogin" value="<?= set_value('nom') ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="InputForName" class="form-label">Nom</label>
-                        <input type="text" name="name" class="form-control" id="InputForName" value="<?= set_value('name') ?>">
+                        <label for="InputForvendeur" class="form-label">vendeur</label>
+                        <input type="text" name="vendeur" class="form-control" id="InputForvendeur" value="<?= set_value('vendeur') ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="InputForPrenom" class="form-label">Prenom</label>
-                        <input type="text" name="prenom" class="form-control" id="InputForPrenom" value="<?= set_value('prenom') ?>">
+                        <label for="InputForcategorie" class="form-label">categorie</label>
+                        <input type="text" name="categorie" class="form-control" id="InputForcategorie" value="<?= set_value('categorie') ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="InputForPhone" class="form-label">Phone</label>
-                        <input type="number" name="phone" class="form-control" id="InputForPhone" value="<?= set_value('phone') ?>">
+                        <label for="InputForimage" class="form-label">image</label>
+                        <input type="text" name="image" class="form-control" id="InputForimage" value="<?= set_value('image') ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="InputForEmail" class="form-label">Email address</label>
-                        <input type="email" name="email" class="form-control" id="InputForEmail" value="<?= set_value('email') ?>">
+                        <label for="description" class="form-label">Edescription</label>
+                        <input type="text" name="description" class="form-control" id="InputFordescription" value="<?= set_value('description') ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="InputForPassword" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="InputForPassword">
+                        <label for="InputForprix" class="form-label">prix</label>
+                        <input type="number" name="prix" class="form-control" id="InputForprix" value="<?= set_value('prix') ?>">
                     </div>
-                    <div class="mb-3">
-                        <label for="InputForConfPassword" class="form-label">Confirm Password</label>
-                        <input type="password" name="confpassword" class="form-control" id="InputForConfPassword">
-                    </div>
+                   <?php $session = session();
+        dd($session);
+        echo "Welcome back, ".$session->get('user_name');?>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
             </div>

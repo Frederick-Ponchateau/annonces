@@ -2,8 +2,8 @@
  
 use CodeIgniter\Model;
  
-class ContactsModel extends Model{
+class UserModel extends Model{
     protected $table = 'users';
 
-    protected $allowedFields = ['user_name','user_email','user_password','user_created_at'];
+    protected $allowedFields = ['login','user_name','prenom','phone','user_email','user_password','user_created_at'];
 }

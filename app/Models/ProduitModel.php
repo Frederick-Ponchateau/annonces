@@ -2,7 +2,7 @@
  
 use CodeIgniter\Model;
  
-class ContactsModel extends Model{
+class ProduitModel extends Model{
     protected $table = 'produit';
-    protected $allowedFields = ['ID','NomProduit','IDVendeur','IDCategorie','Description','Prix','DateCreate'];
+protected $allowedFields = ['ID','NomProduit','IDVendeur','IDCategorie','Image','Description','Prix','DateCreate'];
 }

@@ -2,7 +2,7 @@
  
 use CodeIgniter\Model;
  
-class ContactsModel extends Model{
+class CategorieModel extends Model{
     protected $table = 'categorie';
     protected $allowedFields = ['ID','Categorie','DateCategorie'];
 }
