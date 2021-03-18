@@ -4,5 +4,5 @@ use CodeIgniter\Model;
  
 class ProduitModel extends Model{
     protected $table = 'produit';
-protected $allowedFields = ['ID','NomProduit','IDVendeur','IDCategorie','Image','Description','Prix','DateCreate'];
+protected $allowedFields = ['ID','NomProduit','IDVendeur','Categorie','Image','Description','Prix','DateCreate'];
 }

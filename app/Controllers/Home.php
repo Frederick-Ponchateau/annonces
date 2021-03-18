@@ -20,20 +20,38 @@ class Home extends BaseController
 	}
 	
 	
-	public function index()
+	public function index($typeSearch=null,$element=null)
 	{/*********** 1- Listing produit */
+		$listeProduit = $this->produitModel->orderBy('ID','DESC')->paginate(6);
+		$listeAuteur = $this->userModel;
+		$listeCategorie = $this->categorieModel;
+		
 
 
+
+
+
+
+
+
+
+
+
+
+	/*********************************************
+         * * exemple de passage de variable a une vue
+         * * Data view admin artiste 
+         *********************************************/ 
 	 	$data = [
              'page_title' => 'Accueil' ,
    
-             'tableProduit' => $this->produitModel->findAll(),
-	 		'tableAuteur' => $this->userModel,
-		'tableCategorie' => $this->categorieModel,
+             'tableProduit' => $listeProduit,
+	 		'tableAuteur' => $listeAuteur,
+		'tableCategorie' => $listeCategorie,
             'pager' => $this->produitModel->pager,
         ];
 
-		echo("test");
+	
 	 	echo view('index', $data);
 	 }
 	
