@@ -7,45 +7,44 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
  
-    <title>Register</title>
+    <title>Article</title>
   </head>
   <body>
     <div class="container">
         <div class="row justify-content-md-center">
  
             <div class="col-6">
-                <h1>Sign Up</h1>
+                <h1>Ajouter votre article</h1>
                 <?php if(isset($validation)):?>
                     <div class="alert alert-danger"><?= $validation->listErrors() ?></div>
                 <?php endif;?>
-                <form action="/home/add" method="post">
+                <form action=<?= base_url('produit/add')?> method="post">
                 <div class="mb-3">
                         <label for="InputForLogin" class="form-label">nom</label>
                         <input type="text" name="nom" class="form-control" id="InputForLogin" value="<?= set_value('nom') ?>">
                     </div>
-                    <div class="mb-3">
-                        <label for="InputForvendeur" class="form-label">vendeur</label>
-                        <input type="text" name="vendeur" class="form-control" id="InputForvendeur" value="<?= set_value('vendeur') ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputForcategorie" class="form-label">categorie</label>
-                        <input type="text" name="categorie" class="form-control" id="InputForcategorie" value="<?= set_value('categorie') ?>">
-                    </div>
+                    <select class="form-control form-control-sm" name="categorie">
+                    <option value="square">Selectionnez une categorie</option>
+                        <?php foreach($tableCategorie as $categorie){
+                           ?>
+                               
+                        
+                        <option value= "<?=$categorie["ID"]?>"><?= $categorie["Categorie"]?></option>
+                        <?php } ?>
+                    </select>
                     <div class="mb-3">
                         <label for="InputForimage" class="form-label">image</label>
                         <input type="text" name="image" class="form-control" id="InputForimage" value="<?= set_value('image') ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label">Edescription</label>
+                        <label for="description" class="form-label">Description</label>
                         <input type="text" name="description" class="form-control" id="InputFordescription" value="<?= set_value('description') ?>">
                     </div>
                     <div class="mb-3">
                         <label for="InputForprix" class="form-label">prix</label>
                         <input type="number" name="prix" class="form-control" id="InputForprix" value="<?= set_value('prix') ?>">
                     </div>
-                   <?php $session = session();
-        dd($session);
-        echo "Welcome back, ".$session->get('user_name');?>
+                  
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
             </div>

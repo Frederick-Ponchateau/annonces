@@ -20,19 +20,30 @@ class Produit extends BaseController
 	}
 public function index(){
     helper(['form']);
-    return view('produitAdd');
+
+    $data = [
+        'page_title' => 'Accueil' ,
+
+        'tableProduit' => $this->produitModel->findAll(),
+        'tableAuteur' => $this->userModel,
+        'tableCategorie' => $this->categorieModel->findAll(),
+       'pager' => $this->produitModel->pager,
+   ];
+    echo view('produitAdd',$data);
 }
 
 
 
  public function add(){
+
 		/******** Ajout de produit si l'utilisateur est connecté */
 		//include helper form
         helper(['form']);
+        
+        
         //set rules validation form
         $rules = [
-            'nom'          => 'required',
-            'vendeur'          => 'required',
+            'nom'          => 'required',           
             'categorie'          => 'required',
             'image'          => 'required',
             'description'         => 'required',
@@ -40,22 +51,27 @@ public function index(){
         ];
        
         if($this->validate($rules)){
+           
             $produit = new ProduitModel();
-            $data = [
+            $session = session(); 
+            $catID= intval($session->get('user_id'));
+            
+            $dataSave = [
                 'NomProduit'    	=> $this->request->getVar('nom'),
-                'IDVendeur'    		=> $this->request->getVar('vendeur'),
+                'IDVendeur'    		=> $catID,
                 'IDCategorie'    	=> $this->request->getVar('categorie'),
                 'Image'     		=> $this->request->getVar('image'),
                 'Description'    	=> $this->request->getVar('description'),
                 'Prix' 				=> $this->request->getVar('prix')
             ];
-            $produit->save($data);
+            $produit->save($dataSave);
             return redirect()->to('index');
         }else{
-            $data['validation'] = $this->validator;
-            echo view('produitAdd', $data);
+            $dataSave['validation'] = $this->validator;
+            echo view('produitAdd', $dataSave);
         }
-         
+       
+      
 	 }
      
 	 public function edit($id=null){
