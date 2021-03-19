@@ -102,7 +102,7 @@
                     <li tabindex="0"><a class="grey-text text-darken-2" href="app-contacts.html">Contacts</a></li>
                     <li tabindex="0"><a class="grey-text text-darken-2" href="page-faq.html">FAQ</a></li>
                     <li class="divider" tabindex="-1"></li>
-                    <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                    <li tabindex="0"><a class="grey-text text-darken-2" href="<?=base_url("Login/logout")?>">Logout</a></li>
                     </ul>
                 </div>
                 </div>
@@ -124,7 +124,7 @@
                     <?php  if(isset($tableCategorie)):  
                     foreach($tableCategorie as $categorie):
                     ?>
-                        <p><a href="<?= base_url("/home/categorie/".$categorie["ID"]) ?>"> <?= $categorie["Categorie"]  ?></a></p>
+                        <p><a href="<?= base_url("/home/index/".$categorie["ID"]) ?>"> <?= $categorie["Categorie"]  ?></a></p>
                         <?php  endforeach;
                     endif; ?>    
                     </div>
@@ -137,7 +137,11 @@
         <div class="col s12 m12 l9 pr-0">
             <?php
             if(isset($tableProduit)){
-            foreach($tableProduit as $produit){ ?>
+            foreach($tableProduit as $produit){ 
+          
+                $vendeur= $tableAuteur->where('user_id',$produit['IDVendeur'])->first(); 
+               
+    ?>
         
             <div class="col s12 m4 l4">
                     <div class="card animate fadeLeft">
@@ -154,36 +158,38 @@
                             <div class="display-flex flex-wrap justify-content-center">
                                 <h5 class="mt-3"><?=$produit['Prix']?> €</h5>
                                 <a class="mt-2 waves-effect waves-light gradient-45deg-deep-purple-blue btn btn-block modal-trigger z-depth-4"
-                                    href="#modal1">View</a>
+                                    href="<?="#modal".$produit["ID"]?>">View</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal Structure -->
-                    <div id="modal1" class="modal">
+                    <div id="<?="modal".$produit["ID"]?>" class="modal">
                         <div class="modal-content pt-2">
                             <div class="row" id="product-one">
                                 <div class="col s12">
                                     <a class="modal-close right"><i class="material-icons">close</i></a>
                                 </div>
+
                                 <div class="col m6 s12">
-                                    <img src="../../../app-assets/images/cards/watch-2.png" class="responsive-img" alt="">
+                                <?php if($produit["Image"]){ ?>
+                                                        <img src=<?="/app-assets/images/".$produit["Image"]?> alt="mon image" class="responsive-img" />
+                                                    <?php }else{ ?>
+                                                       <img src=<?="/app-assets/images/default.jpg"?> alt="mon image" class="responsive-img" />
+                                                    <?php } ?>                        
                                 </div>
                                 <div class="col m6 s12">
-                                    <p>Smartwatches</p>
-                                    <h5>Smartwatch 2.0 LTE Wifi</h5>
-                                    <span class="new badge left ml-0 mr-2" data-badge-caption="">4.2 Star</span>
-                                    <p>Availability: <span class="green-text">36 Item Available</span></p>
+                                    <h5><?=$produit['NomProduit']?></h5>
+                                    
                                     <hr class="mb-5">
-                                    <span class="vertical-align-top mr-4"><i class="material-icons mr-3">favorite_border</i>Wishlist</span>
+                                    
                                     <ul class="list-bullet">
-                                    <li class="list-item-bullet">Accept SIM card and call</li>
-                                    <li class="list-item-bullet">Make calling instead of mobile phone</li>
-                                    <li class="list-item-bullet">Sync music play and sync control music</li>
-                                    <li class="list-item-bullet">Sync Facebook,Twiter,emailand calendar</li>
+                                    <li class="list-item-bullet"><?=$produit['Description']?></li>
+                            
                                     </ul>
-                                    <h5>$399.00 <span class="prise-text-style ml-2">$459.00</span></h5>
-                                    <a class="waves-effect waves-light btn gradient-45deg-deep-purple-blue mt-2 mr-2">ADD TO CART</a>
+                                    <p><a href=""><?=$vendeur['user_name']?></a></p>
+                                    <h5><span class="prise-text-style ml-2"><?=$produit['Prix']?> €</span></h5>
+                                  
                                     <a class="waves-effect waves-light btn gradient-45deg-purple-deep-orange mt-2">BUY NOW</a>
                                 </div>
                             </div>

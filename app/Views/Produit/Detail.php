@@ -20,7 +20,7 @@ if($tableProduit["IDVendeur"] == $userID){?>
         <i class="material-icons">edit</i>
    
   
-        <a href=<?= base_url("Produit/delete/".$tableProduit["ID"]) ?> class="invoice-action-view mr-4">
+        <a href=<?= base_url("Produit/delete/".$tableProduit["ID"].$tableProduit["IDVendeur"]) ?> class="invoice-action-view mr-4">
         <i class="material-icons">delete</i>
     </a>
 

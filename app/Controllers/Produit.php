@@ -20,10 +20,10 @@ class Produit extends BaseController
        
 	}
 public function index(){
-    $user=false;
-    $listeProduit = $this->produitModel->orderBy("NomProduit",'ASC')->paginate(10);
     $session = session(); 
     $userID= $session->get('user_id');
+    $user=false;
+    $listeProduit = $this->produitModel->where("IDVendeur",$userID)->orderBy("NomProduit",'ASC')->paginate(10);
     // if($idVendeur == $userID){   
     //     $user = true;     
     //     $listeProduit = $this->produitModel->where("IDVendeur",$idVendeur)->orderBy('ID','DESC')->paginate(6);
@@ -40,65 +40,12 @@ public function index(){
     echo view('Produit/list',$data);
 }
 
-
-
- public function add(){
-
-		/******** Ajout de produit si l'utilisateur est connecté */
-		//include helper form
-        // helper(['form']);
-        // $session = session(); 
-        
-        //set rules validation form
-        // $rules = [
-        //     'nom'          => 'required',           
-        //     'categorie'          => 'required',
-        //     'image'          => 'required',
-        //     'description'         => 'required',
-        //     'prix'      => 'required'
-        // ];
-       
-        // if($this->validate($rules)){                      
-            
-        //     $userID= intval($session->get('user_id'));
-        //     $dataSave = [
-        //         'NomProduit'    	=> $this->request->getVar('nom'),
-        //         'IDVendeur'    		=> $userID,
-        //         'Categorie'    	=> $this->request->getVar('categorie'),
-        //         'Description'    	=> $this->request->getVar('description'),
-        //         'Prix' 				=> $this->request->getVar('prix')
-        //     ];
-           
-            // $file = $this->request->getFile('image');
-           
-            // $newName = $file->getRandomName();
-            
-            // $file->move(ROOTPATH."public/app-assets/images",$newName);
-            // if($file){
-            //     $data_save["Image"]= $newName;
-            //     /****************** Réalisation de la miniature ************/
-            //     $image = \Config\Services::image()
-            //     ->withFile(ROOTPATH."public/app-assets/images/".$newName)
-            //     ->fit(100, 100, 'center')
-            //     ->save(ROOTPATH."public/app-assets/images/min/".$newName);
-            // }
-        //     $this->produitModel->save($dataSave);
-        //     return redirect()->to('index');
-        // }else{
-        //     $dataSave['tableCategorie'] = $this->categorieModel->findAll();
-        //     $dataSave['validation'] = $this->validator;
-        //     echo view('produit/add',$dataSave);
-        // }
-       
-      
-}
-     
 	 public function edit($id=null){
         /****** Si connecté peut modifier le porduit */
         $session = session(); 
         $userID= $session->get('user_id');
         $user=false;
-        $listeProduit = $this->produitModel->where("ID",$id)->first();
+        $listeProduit = $this->produitModel->where("ID",$id)->where("IDVendeur",$userID)->first();
         //dd($listeProduit);
         $listeUser = $this->userModel;
         $listeCategorie = $this->categorieModel->findAll();
@@ -138,6 +85,7 @@ public function index(){
                     }
                 if($save == 'update'){
                     $test=  $this->produitModel->where("ID",$id)
+                    ->where("IDVendeur",$userID)
                     ->set($dataSave)
                     ->update();
 
@@ -166,16 +114,16 @@ public function index(){
      // dd($data);
         echo view('produit/Edit', $data);
     }
-    public function delete($id=null,$idVendeur=null,$page=null){
+    public function delete($id=null,$page=null){
         /******* connexion requis *****/
-        // $session = session(); 
-        // $userID= $session->get('user_id');
-        // if($idVendeur == $userID){        
-            $this->produitModel->where('ID', $id)->delete();
+         $session = session(); 
+         $userID= $session->get('user_id');
+        if($userID){        
+            $this->produitModel->where('ID', $id)->where("IDVendeur",$userID)->delete();
             if(!empty($page)){
                 return redirect()->to('/produit/index/'.$idVendeur.'/?page='.$page);
             }
-        //}
+        }
         return redirect()->to('/Produit');
 
     }

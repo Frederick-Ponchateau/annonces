@@ -20,7 +20,7 @@ class Home extends BaseController
 	}
 	
 	
-	public function index()
+	public function index($catID=null)
 	{/*********** 1- Listing produit */
 		$listeProduit = $this->produitModel->orderBy('ID','DESC')->paginate(6);
 		$listeAuteur = $this->userModel;
@@ -29,6 +29,11 @@ class Home extends BaseController
          * * exemple de passage de variable a une vue
          * * Data view admin artiste 
          *********************************************/ 
+		if(isset($catID)){
+					$listeProduit= $this->produitModel->where('Categorie',$catID)->orderBy('ID','DESC')->paginate(6);	
+					
+				}
+
 	 	$data = [
              'page_title' => 'Accueil' ,
              'tableProduit' => $listeProduit,
@@ -36,7 +41,7 @@ class Home extends BaseController
 		'tableCategorie' => $listeCategorie,
             'pager' => $this->produitModel->pager,
         ];
-
+		
 		echo view('commun/header_site');
 	 	echo view('index', $data);
 		 echo view('commun/footer_site');
@@ -55,33 +60,12 @@ class Home extends BaseController
 			'page_title' => 'Categorie' ,
 			'tableAuteur' => $listeAuteur,
 			'tableProduit' => $listeProduit,
-	   'tableCategorie' => $listeCategorie,
-		   'pager' => $this->produitModel->pager,
+	   		'tableCategorie' => $listeCategorie,
+		   	'pager' => $this->produitModel->pager,
 	   ];
 
    
 		echo view('Produit/Detail', $data);
 	}
-	public function categorie($idCategorie=null){
-		$listeAuteur = $this->userModel;
-		$listeCategorie = $this->categorieModel->findAll();
-		/********** selection les produits par categorie */
-		$listeProduit= $this->produitModel->where('Categorie',$idCategorie)->orderBy('ID','DESC')->paginate(6);	
-		
-	/*********************************************
-         * * exemple de passage de variable a une vue
-         * * Data view admin artiste 
-         *********************************************/ 
-	 	$data = [
-             'page_title' => 'Categorie' ,
-   
-             'tableProduit' => $listeProduit,
-		'tableCategorie' => $listeCategorie,
-            'pager' => $this->produitModel->pager,
-        ];
-
-		echo view('commun/header_site');
-	 	echo view('index', $data);
-		 echo view('commun/footer_site');
-	}
+	
 }
