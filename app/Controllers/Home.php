@@ -38,7 +38,7 @@ class Home extends BaseController
         ];
 
 		echo view('commun/header_site');
-	 	echo view('affichage', $data);
+	 	echo view('index', $data);
 		 echo view('commun/footer_site');
 	 }
 	public function detail($idProduit=null){
@@ -64,7 +64,7 @@ class Home extends BaseController
 	}
 	public function categorie($idCategorie=null){
 		$listeAuteur = $this->userModel;
-		$listeCategorie = $this->categorieModel;
+		$listeCategorie = $this->categorieModel->findAll();
 		/********** selection les produits par categorie */
 		$listeProduit= $this->produitModel->where('Categorie',$idCategorie)->orderBy('ID','DESC')->paginate(6);	
 		
@@ -80,8 +80,8 @@ class Home extends BaseController
             'pager' => $this->produitModel->pager,
         ];
 
-	
+		echo view('commun/header_site');
 	 	echo view('index', $data);
-
+		 echo view('commun/footer_site');
 	}
 }

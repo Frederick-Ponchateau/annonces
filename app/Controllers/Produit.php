@@ -130,7 +130,11 @@ public function index(){
                     if($file){
                         
                         $dataSave["Image"]= $newName;
-                        //dd($dataSave);
+                         /****************** Réalisation de la miniature ************/
+                         $image = \Config\Services::image()
+                         ->withFile(ROOTPATH."public/app-assets/images/".$newName)
+                         ->fit(100, 100, 'center')
+                         ->save(ROOTPATH."public/app-assets/images/min/".$newName);
                     }
                 if($save == 'update'){
                     $test=  $this->produitModel->where("ID",$id)

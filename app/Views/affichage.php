@@ -145,7 +145,12 @@
                         <div class="card-content">
                             
                             <span class="card-title text-ellipsis"><?=$produit['NomProduit']?></span>
-                            <img src="../../../app-assets/images/cards/watch-2.png" class="responsive-img" alt="">
+                            <?php if($produit["Image"]){ ?>
+                                                        <img src=<?="/app-assets/images/".$produit["Image"]?> alt="mon image" class="responsive-img" />
+                                                    <?php }else{ ?>
+                                                       <img src=<?="/app-assets/images/default.jpg"?> alt="mon image" class="responsive-img" />
+                                                    <?php } ?>
+                          
                             <div class="display-flex flex-wrap justify-content-center">
                                 <h5 class="mt-3"><?=$produit['Prix']?> €</h5>
                                 <a class="mt-2 waves-effect waves-light gradient-45deg-deep-purple-blue btn btn-block modal-trigger z-depth-4"
@@ -190,31 +195,12 @@
                     
 
         
-    
+                
       
         <!-- Pagination -->
         <div class="col s12 center">
             <ul class="pagination">
-            <li class="disabled">
-                <a href="#!">
-                <i class="material-icons">chevron_left</i>
-                </a>
-            </li>
-            <li class="active"><a href="#!">1</a>
-            </li>
-            <li class="waves-effect"><a href="#!">2</a>
-            </li>
-            <li class="waves-effect"><a href="#!">3</a>
-            </li>
-            <li class="waves-effect"><a href="#!">4</a>
-            </li>
-            <li class="waves-effect"><a href="#!">5</a>
-            </li>
-            <li class="waves-effect">
-                <a href="#!">
-                <i class="material-icons">chevron_right</i>
-                </a>
-            </li>
+              <li><?= $pager->links() ;?></li>
             </ul>
         </div>
             </div>
