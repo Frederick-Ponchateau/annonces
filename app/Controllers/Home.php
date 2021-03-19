@@ -24,7 +24,7 @@ class Home extends BaseController
 	{/*********** 1- Listing produit */
 		$listeProduit = $this->produitModel->orderBy('ID','DESC')->paginate(6);
 		$listeAuteur = $this->userModel;
-		$listeCategorie = $this->categorieModel;
+		$listeCategorie = $this->categorieModel->findAll();
 	/*********************************************
          * * exemple de passage de variable a une vue
          * * Data view admin artiste 
@@ -37,8 +37,9 @@ class Home extends BaseController
             'pager' => $this->produitModel->pager,
         ];
 
-	
-	 	echo view('index', $data);
+		echo view('commun/header_site');
+	 	echo view('affichage', $data);
+		 echo view('commun/footer_site');
 	 }
 	public function detail($idProduit=null){
 
