@@ -40,14 +40,16 @@
                                     foreach($tableProduit as $produit):
                                         $vendeur= $tableAuteur->where('user_id',$produit["IDVendeur"])->first();  
                                         ?>
-                                        <tr>
+                                        <tr><a href="<?= base_url("Home/Detail/".$produit["ID"]) ?>">
                                             <td><span class="invoice-amount"><?= $produit["NomProduit"] ?></span></td>
                                             <td><span class="invoice-amount"><?= $vendeur["user_name"] ?></span></td>                                      
                                             <td><span class="invoice-amount"><?= $produit["Categorie"] ?></span></td>
                                             <td><span class="invoice-amount"><?= $produit["Image"] ?></span></td>
                                             <td><span class="invoice-customer"><?= $produit["Description"] ?></span></td>
                                             <span class="invoice-amount"><?= $produit["Prix"] ?></span>
-                                            <td>
+                                          </a>  
+                                        
+                                          <td>
                                                 <div class="invoice-action">
                                                     <a href=<?= base_url("Produit/edit/".$produit["ID"]) ?> class="invoice-action-edit">
                                                         <i class="material-icons">edit</i>
