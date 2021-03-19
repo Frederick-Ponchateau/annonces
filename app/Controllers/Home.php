@@ -20,31 +20,17 @@ class Home extends BaseController
 	}
 	
 	
-	public function index($typeSearch=null,$element=null)
+	public function index()
 	{/*********** 1- Listing produit */
 		$listeProduit = $this->produitModel->orderBy('ID','DESC')->paginate(6);
 		$listeAuteur = $this->userModel;
 		$listeCategorie = $this->categorieModel;
-		
-
-
-
-
-
-
-
-
-
-
-
-
 	/*********************************************
          * * exemple de passage de variable a une vue
          * * Data view admin artiste 
          *********************************************/ 
 	 	$data = [
              'page_title' => 'Accueil' ,
-   
              'tableProduit' => $listeProduit,
 	 		'tableAuteur' => $listeAuteur,
 		'tableCategorie' => $listeCategorie,
@@ -54,5 +40,47 @@ class Home extends BaseController
 	
 	 	echo view('index', $data);
 	 }
+	public function detail($idProduit=null){
+
+		$listeAuteur = $this->userModel;
+		$listeCategorie = $this->categorieModel;
+		/******Requete selection 1 produt pour avoir tout les details ********/
+		$listeProduit = $this->produitModel->where("ID",$idProduit)->first();
+		/*********************************************
+         * * exemple de passage de variable a une vue
+         * * Data view admin artiste 
+         *********************************************/ 
+		$data = [
+			'page_title' => 'Categorie' ,
+			'tableAuteur' => $listeAuteur,
+			'tableProduit' => $listeProduit,
+	   'tableCategorie' => $listeCategorie,
+		   'pager' => $this->produitModel->pager,
+	   ];
+
+   
+		echo view('Produit/Detail', $data);
+	}
+	public function categorie($idCategorie=null){
+		$listeAuteur = $this->userModel;
+		$listeCategorie = $this->categorieModel;
+		/********** selection les produits par categorie */
+		$listeProduit= $this->produitModel->where('Categorie',$idCategorie)->orderBy('ID','DESC')->paginate(6);	
+		
+	/*********************************************
+         * * exemple de passage de variable a une vue
+         * * Data view admin artiste 
+         *********************************************/ 
+	 	$data = [
+             'page_title' => 'Categorie' ,
+   
+             'tableProduit' => $listeProduit,
+		'tableCategorie' => $listeCategorie,
+            'pager' => $this->produitModel->pager,
+        ];
+
 	
+	 	echo view('index', $data);
+
+	}
 }

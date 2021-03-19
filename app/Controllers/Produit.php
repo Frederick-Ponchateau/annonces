@@ -140,7 +140,7 @@ public function index(){
                 }else{
                     
                     $this->produitModel->save($dataSave);
-                    dd($dataSave);
+                   // dd($dataSave);
                     return redirect()->to('/Produit');
                 }
             }  
